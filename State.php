@@ -14,6 +14,11 @@ class State
         $this->_name = $name;
     }
 
+    public function getName()
+    {
+        return $this->_name;
+    }
+
     public function addTransition(Event $event, State $targetState)
     {
         $this->_transitions[$event->getCode()] =

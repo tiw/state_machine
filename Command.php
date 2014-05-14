@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/AbstractEvent';
+require_once __DIR__.'/AbstractEvent.php';
 
 abstract class Command extends AbstractEvent
 {

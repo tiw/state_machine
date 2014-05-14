@@ -12,6 +12,11 @@ class StateMachine
         $this->_start = $start;
     }
 
+    public function getStartState()
+    {
+        return $this->_start;
+    }
+
     public function getStates()
     {
         $states = [];
