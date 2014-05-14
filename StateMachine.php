@@ -15,7 +15,7 @@ class StateMachine
     public function getStates()
     {
         $states = [];
-        $this->_collectStates(&$states, $this->_start);
+        $this->_collectStates($states, $this->_start);
         return $states;
     }
 
@@ -30,8 +30,8 @@ class StateMachine
             return;
         }
         $states[] = $start;
-        foreach($start->getAllTargets() as $target) {
-            $this->collectStates(&$states, $target);
+        foreach($start->getAllTargets() as $code=>$target) {
+            $this->_collectStates($states, $target);
         }
     }
 }
