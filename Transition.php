@@ -17,4 +17,16 @@ class Transition
      */
     private $_trigger;
 
+
+    public function __construct($source, $trigger, $target)
+    {
+        $this->_source = $source;
+        $this->_trigger = $trigger;
+        $this->_target = $target;
+    }
+
+    public function getTargetState()
+    {
+        return $this->_target;
+    }
 }
