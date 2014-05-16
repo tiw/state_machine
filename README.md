@@ -53,3 +53,20 @@ In '''Transition''' block all transitions are listed in the format [startState, 
 
 
 The sample use of state machine and controller could be see in the test directory.
+
+
+Install per Composer
+=============
+```
+{
+
+    "require": {
+        "tiddr/state_machine": "dev-master"
+    }
+}
+```
+
+Then just add
+```
+require_once __DIR__.'/vendor/autoload.php';
+```
