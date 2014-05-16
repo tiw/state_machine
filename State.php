@@ -32,6 +32,9 @@ class State
 
     public function targetState($eventCode)
     {
+        if(!isset($this->_transitions[$eventCode])) {
+            throw new Exception('Do not accept the event ' . $eventCode);
+        }
         return $this->_transitions[$eventCode]->getTargetState();
     }
 
