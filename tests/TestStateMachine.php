@@ -30,4 +30,11 @@ class TestStateMachine extends PHPUnit_Framework_TestCase
         $this->assertTrue(in_array($doorOpenedState, $allStates));
         $this->assertTrue(in_array($windowOpenedState, $allStates));
     }
+
+    public function testFromFile()
+    {
+        $stateMachine = StateMachine::fromFile('./test.sm');
+        $this->assertEquals(4, count($stateMachine->getStates()));
+        $this->assertEquals("dc", $stateMachine->getStartState()->getName());
+    }
 }

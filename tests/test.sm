@@ -1,0 +1,22 @@
+Name: door
+
+Start: "dc"
+
+Event:
+- ["close door", "CD"]
+- ["open door", "OD"]
+- ["open window", "OW"]
+- ["close window", "CW"]
+
+
+State:
+- "dc"
+- "do"
+- "wo"
+- "wc"
+
+Transition:
+- ["dc", "OD", "do"]
+- ["do", "OW", "wo"]
+- ["wo", "CW", "wc"]
+- ["do", "CD", "dc"]
