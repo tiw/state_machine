@@ -1,10 +1,11 @@
 <?php
-require_once __DIR__.'/../Event.php';
-require_once __DIR__.'/../Transition.php';
-require_once __DIR__.'/../State.php';
+namespace Tiddr\StateMachine;
+use Tiddr\StateMachine\Event;
+use Tiddr\StateMachine\Transition;
+use Tiddr\StateMachine\State;
 
 
-class TestState extends PHPUnit_Framework_TestCase
+class TestState extends \PHPUnit_Framework_TestCase
 {
     private $_start;
 
