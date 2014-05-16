@@ -1,6 +1,7 @@
 <?php
+namespace Tiddr\StateMachine;
 
-require_once __DIR__.'/AbstractEvent.php';
+use AbstractEvent;
 
 abstract class Command extends AbstractEvent
 {

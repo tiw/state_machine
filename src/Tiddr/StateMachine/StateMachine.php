@@ -1,4 +1,6 @@
 <?php
+namespace Tiddr\StateMachine;
+use Tiddr\StateMachine\State;
 
 /**
  * State Machine

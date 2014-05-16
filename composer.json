@@ -1,5 +1,8 @@
 {
-    "require": {
-        "pimple/pimple": "~2.1"
+    "name":"tiddr/auto_machine",
+    "autoload": {
+        "psr-0": {
+            "Tiddr\\Auto_Machine": "src"
+        }
     }
 }

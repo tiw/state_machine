@@ -1,4 +1,5 @@
 <?php
+namespace Tiddr\StateMachine;
 
 abstract class AbstractEvent
 {
