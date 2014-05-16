@@ -1,3 +1,53 @@
 state_machine
 =============
 A state machine implemetation in PHP.
+This implementation is mostly inspired from "Domain Specifi Languages" of Martin Flower.
+
+State Machine in essential is a collection of State, Event and Transistion.
+
+
++---------+               +---------+
+|         |               |         |
+|         +---------------+         |
++---------+               +---------+
+    State1     Event        target
+
+
+In this implementation the description of a state machine could be written in yml.
+
+An example state machine could be like:
+
+```
+Name: door
+
+Start: "dc"
+
+Event:
+- ["close door", "CD"]
+- ["open door", "OD"]
+- ["open window", "OW"]
+- ["close window", "CW"]
+
+
+State:
+- "dc"
+- "do"
+- "wo"
+- "wc"
+
+Transition:
+- ["dc", "OD", "do"]
+- ["do", "OW", "wo"]
+- ["wo", "CW", "wc"]
+- ["do", "CD", "dc"]
+```
+
+In '''Event''' block all events are listed in the format [name, code]. Code
+must be unique. This code is also used to drive the machine.
+
+In '''State''' block all states are listed in the format "name". 
+
+In '''Transition''' block all transitions are listed in the format [startState, event, targetState].
+
+
+The sample use of state machine and controller could be see in the test directory.
