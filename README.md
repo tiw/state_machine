@@ -4,13 +4,15 @@ A state machine implemetation in PHP.
 This implementation is mostly inspired from "Domain Specifi Languages" of Martin Flower.
 
 State Machine in essential is a collection of State, Event and Transistion.
-
+```
 
 +---------+               +---------+
 |         |               |         |
 |         +---------------+         |
 +---------+               +---------+
     State1     Event        target
+
+```
 
 
 In this implementation the description of a state machine could be written in yml.
