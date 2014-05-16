@@ -1,8 +1,8 @@
 {
-    "name":"tiddr/auto_machine",
+    "name":"tiddr/state_machine",
     "autoload": {
         "psr-0": {
-            "Tiddr\\Auto_Machine": "src"
+            "Tiddr\\StateMachine": "src"
         }
     }
 }
