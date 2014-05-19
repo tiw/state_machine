@@ -16,6 +16,13 @@ class State
         $this->_name = $name;
     }
 
+    public function addAction(Command $action)
+    {
+        if (!in_array($action, $this->_actions)) {
+            $this->_actions[] = $action;
+        }
+    }
+
     public function getName()
     {
         return $this->_name;
@@ -38,14 +45,6 @@ class State
             throw new \Exception('Do not accept the event ' . $eventCode);
         }
         return $this->_transitions[$eventCode]->getTargetState();
-    }
-
-
-    public function executeActions($commandChannel)
-    {
-        foreach($this->_actions as $command) {
-            $commandChannel->send($command->getCode());
-        }
     }
 
     public function getAllTargets()

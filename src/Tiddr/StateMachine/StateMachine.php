@@ -64,7 +64,7 @@ class StateMachine
      */
     public static function fromFile($file)
     {
-        $lex = yaml_parse(file_get_contents($file));
+        $lex = \yaml_parse(file_get_contents($file));
         $events = [];
         foreach($lex['Event'] as $eventData) {
             $events[$eventData[1]] = new Event($eventData[0], $eventData[1]);

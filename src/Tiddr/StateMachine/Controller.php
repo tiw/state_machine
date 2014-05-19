@@ -1,6 +1,6 @@
 <?php
 namespace Tiddr\StateMachine;
-use Tiddr\StateMachine\CommandChannel;
+use Tiddr\StateMachine\Publisher;
 use Tiddr\StateMachine\Transition;
 use Tiddr\StateMachine\State;
 use Tiddr\StateMachine\Event;
@@ -11,7 +11,7 @@ class Controller
 {
     private $_currentState;
     private $_stateMachine;
-    private $_commandChannel;
+    private $_publisher;
 
     public function __construct($stateMachine, $currentState=null)
     {
@@ -21,6 +21,11 @@ class Controller
             $this->_currentState = $currentState;
         }
         $this->_stateMachine = $stateMachine;
+    }
+
+    public function setPublisher(Publisher $publisher)
+    {
+        $this->_publisher = $publisher;
     }
 
     public function getCommandChannel()
@@ -44,6 +49,8 @@ class Controller
     private function _transitionTo($target)
     {
         $this->_currentState = $target;
-        $this->_currentState->executeActions($this->_commandChannel);
+        if(isset($this->_publisher)){
+           $this->_publisher->publish($this->_currentState);
+        }
     }
 }
