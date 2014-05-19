@@ -70,3 +70,7 @@ Then just add
 ```
 require_once __DIR__.'/vendor/autoload.php';
 ```
+
+
+
+[[!Build status](https://travis-ci.org/tiw/state_machine.svg?branch=develop)]
