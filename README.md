@@ -81,5 +81,3 @@ Example
 ===============
 Take a look at the files under directory [tests](https://github.com/tiw/state_machine/tree/master/tests)
 
-
-
