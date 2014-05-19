@@ -55,4 +55,13 @@ class State
         }
         return $target;
     }
+
+    public function getAllPosibleTriggers()
+    {
+        $triggers  = [];
+        foreach($this->_transitions as $transition) {
+            $triggers[] = $transition->getTrigger();
+        }
+        return $triggers;
+    }
 }

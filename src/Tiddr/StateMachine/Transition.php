@@ -33,4 +33,10 @@ class Transition
     {
         return $this->_target;
     }
+
+
+    public function getTrigger()
+    {
+        return $this->_trigger;
+    }
 }
