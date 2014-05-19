@@ -1,5 +1,10 @@
+[![Build status](http://travis-ci.org/tiw/state_machine.svg?branch=develop)](http://travis-ci.org/tiw/state_machine)
+
 state_machine
 =============
+
+[中文介绍](https://github.com/tiw/state_machine/blob/master/README_cn.md)
+
 A state machine implemetation in PHP.
 This implementation is mostly inspired from "Domain Specifi Languages" of Martin Flower.
 
@@ -72,5 +77,9 @@ require_once __DIR__.'/vendor/autoload.php';
 ```
 
 
+Example
+===============
+Take a look at the files under directory [tests](https://github.com/tiw/state_machine/tree/master/tests)
 
-[![Build status](http://travis-ci.org/tiw/state_machine.svg?branch=develop)](http://travis-ci.org/tiw/state_machine)
+
+
