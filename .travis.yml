@@ -2,6 +2,10 @@ language: php
 php:
     - 5.5
     - 5.4
+
+
 before_script:
+    - print "\n" |pecl install yaml
     - cd tests
+
 script: phpunit 
