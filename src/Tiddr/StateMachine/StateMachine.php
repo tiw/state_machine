@@ -67,7 +67,32 @@ class StateMachine
             throw new \Exception("Cannot found file {$file}");
         }
         $lex = Json_decode(file_get_contents($file), true);
+        foreach(self::getExtensions() as $extension) {
+            $lex = call_user_func($extension, $lex);
+        }
         return self::_generateFromLex($lex);
+    }
+
+
+    public static function getExtensions()
+    {
+        return [
+            function($lex) {
+                foreach($lex['State'] as $key => $state) {
+                    if (is_array($state)) {
+                        if (count($state) != 2) {
+                            throw new \Exception("Your must define prefix and suffix");
+                        }
+                        foreach ($state[0] as $pre) {
+                            $stateName = $pre . ':' . $state[1];
+                            $lex['State'][]= $stateName;
+                        }
+                        unset($lex['State'][$key]);
+                    }
+                }
+                return $lex;
+            },
+        ];
     }
 
     private static function _generateFromLex($lex)
