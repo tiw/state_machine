@@ -71,6 +71,9 @@ class TestStateMachine extends \PHPUnit_Framework_TestCase
         $controller = new Controller($stateMachine, $state);
         $currentState = $controller->getCurrentState();
         $this->assertEquals(1, count($currentState->getAllPosibleTriggers()));
-        $this->assertEquals('close', $currentState->getAllPosibleTriggers()[0]->getName());
+        $this->assertEquals(
+            'close',
+            $currentState->getAllPosibleTriggers()->current()->getName()
+        );
     }
 }

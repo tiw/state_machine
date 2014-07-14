@@ -37,6 +37,11 @@ class Controller
     {
     }
 
+    /**
+     * get the current state of the current mashine
+     *
+     * @return State
+     */
     public function getCurrentState()
     {
         return $this->_currentState;

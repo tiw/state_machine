@@ -56,11 +56,15 @@ class State
         return $target;
     }
 
+
+    /**
+     * @return \ArrayIterator
+     */
     public function getAllPosibleTriggers()
     {
-        $triggers  = [];
+        $triggers  = new \ArrayIterator();
         foreach($this->_transitions as $transition) {
-            $triggers[] = $transition->getTrigger();
+            $triggers->append( $transition->getTrigger());
         }
         return $triggers;
     }
