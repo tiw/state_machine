@@ -64,6 +64,10 @@ class StateMachine
      */
     public static function fromFile($file)
     {
+        if(!\file_exists($file)) {
+            throw new \Exception("Cannot found file {$file}");
+        }
+
         $lex = \yaml_parse(file_get_contents($file));
         $events = [];
         foreach($lex['Event'] as $eventData) {
