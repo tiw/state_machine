@@ -54,21 +54,24 @@ class StateMachine
         }
     }
 
+
     /**
-     * Generate State Machine from a DSL file, now in Yaml.
+     * @param string $file state machine
      *
-     * @param string $file file path
-     *
-     * @return StateMachine
+     * @return StateMachine state machine
      *
      */
-    public static function fromFile($file)
+    public static function fromJsonFile($file)
     {
         if(!\file_exists($file)) {
             throw new \Exception("Cannot found file {$file}");
         }
+        $lex = Json_decode(file_get_contents($file), true);
+        return self::_generateFromLex($lex);
+    }
 
-        $lex = \yaml_parse(file_get_contents($file));
+    private static function _generateFromLex($lex)
+    {
         $events = [];
         foreach($lex['Event'] as $eventData) {
             $events[$eventData[1]] = new Event($eventData[0], $eventData[1]);
@@ -86,5 +89,22 @@ class StateMachine
         }
         $stateMachine = new StateMachine($states[$lex['Start']]);
         return $stateMachine;
+    }
+
+    /**
+     * Generate State Machine from a DSL file, now in Yaml.
+     *
+     * @param string $file file path
+     *
+     * @return StateMachine
+     *
+     */
+    public static function fromFile($file)
+    {
+        if(!\file_exists($file)) {
+            throw new \Exception("Cannot found file {$file}");
+        }
+        $lex = \yaml_parse(file_get_contents($file));
+        return self::_generateFromLex($lex);
     }
 }

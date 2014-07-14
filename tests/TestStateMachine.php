@@ -38,4 +38,11 @@ class TestStateMachine extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4, count($stateMachine->getStates()));
         $this->assertEquals("dc", $stateMachine->getStartState()->getName());
     }
+
+    public function testFromJsonFile()
+    {
+        $stateMachine = StateMachine::fromJsonFile('./test.json');
+        $this->assertEquals(4, count($stateMachine->getStates()));
+        $this->assertEquals("dc", $stateMachine->getStartState()->getName());
+    }
 }
