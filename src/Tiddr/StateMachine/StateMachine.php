@@ -77,6 +77,7 @@ class StateMachine
     public static function getExtensions()
     {
         return [
+            // add tubo state defination
             function($lex) {
                 foreach($lex['State'] as $key => $state) {
                     if (is_array($state)) {
@@ -92,6 +93,22 @@ class StateMachine
                 }
                 return $lex;
             },
+            // add tubo transition definition
+            function($lex) {
+                foreach($lex['Transition'] as $key => $transition) {
+                    if (count($transition) != 3) {
+                        throw new \Exception("Transition needs three params");
+                    }
+                    if (is_array($transition[0])) {
+                        foreach ($transition[0] as $t) {
+                            $lex['Transition'][] =
+                                [$t, $transition[1], $t . ':' . $transition[2]];
+                        }
+                        unset($lex['Transition'][$key]);
+                    }
+                }
+                return $lex;
+            }
         ];
     }
 

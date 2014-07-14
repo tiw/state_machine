@@ -1,0 +1,31 @@
+{
+    "Name": "door",
+    "Start": "dc",
+    "Event": [
+        ["close door", "CD"],
+        ["open door", "OD"],
+        ["open window", "OW"],
+        ["close window", "CW"],
+        ["dummy event", "D"]
+    ],
+
+    "State": [
+        [["dc", "do", "wo", "wc"], "sf"],
+        "dc", "do", "wo", "wc"
+    ],
+
+    "Transition": [
+        ["dc", "OD", "do"],
+        ["do", "OW", "wo"],
+        ["wo", "CW", "wc"],
+        ["do", "CD", "dc"],
+
+        ["dc", "OD", "do"],
+        ["do", "OW", "wo"],
+        ["wo", "CW", "wc"],
+        ["do", "CD", "dc"],
+
+        [["dc", "do", "wo", "wc"], "D", "sf"]
+    ]
+}
+
