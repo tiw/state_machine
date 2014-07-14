@@ -45,7 +45,11 @@ class StateMachine
      */
     private function _collectStates(&$states, $start)
     {
-        if(in_array($start, $states)) {
+        $keys = [];
+        foreach($states as $state) {
+            $keys[] = $state->getName();
+        }
+        if(in_array($start->getName(), $keys)) {
             return;
         }
         $states[] = $start;

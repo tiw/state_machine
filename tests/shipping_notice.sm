@@ -1,0 +1,65 @@
+name: "shipping_notice"
+Start: "150"
+
+State:
+- "150" #未发货
+- "151" #待备货
+- "152" #已备货
+- "153" #拣货中
+- "154" #交接中
+- "155" #已交接
+- "156" #已发货
+# - "157" #发货中 // 订单独有状态
+- "158" #已签收
+- "159" #已关闭
+- "154:2" #物流拒收
+- "150:1" #缺货拒收
+- "150:network_failed"
+- "151:network_failed"
+- "152:network_failed"
+- "153:network_failed"
+- "154:network_failed"
+
+Event:
+- ["change express", "ce"]
+- ["change receiver", "cr"]
+- ["cancel shipping notice", "csn"]
+- ["reject because of lack of inventory", "rbol"]
+- ["reject because of express", "rboe"]
+- ["network failed", "nf"]
+- ["enforce sending", "esend"]
+- ["send", "send"]
+- ["close", "close"]
+
+Transition:
+# 异常产生
+- ["150", "nf", "150:network_failed"]
+- ["151", "nf", "151:network_failed"]
+- ["152", "nf", "152:network_failed"]
+- ["153", "nf", "153:network_failed"]
+- ["154", "nf", "154:network_failed"]
+- ["150", "rbol", "150:1"]
+- ["154", "rboe", "154:2"]
+# 异常解决流程
+- ["150:network_failed", "send", "152"]
+- ["150:network_failed", "esend", "151"]
+- ["154:2", "ce", "154"]
+- ["154:2", "cr", "154"]
+# 异常关闭流程
+- ["150:1", "close", "159"] # lack of inventory
+- ["154:2", "close", "159"] # rejected by express
+# 正常变更流程
+- ["150", "send", "152"]
+- ["150", "esend", "151"]
+- ["150", "ce", "150"]
+- ["151", "ce", "151"]
+- ["152", "ce", "152"]
+- ["153", "ce", "153"]
+- ["150", "cr", "150"]
+- ["151", "cr", "151"]
+- ["152", "cr", "152"]
+- ["153", "cr", "153"]
+- ["150", "close", "159"]
+- ["151", "close", "159"]
+- ["152", "close", "159"]
+- ["153", "close", "159"]

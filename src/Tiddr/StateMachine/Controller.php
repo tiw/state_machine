@@ -18,7 +18,12 @@ class Controller
         if (is_null($currentState)) {
             $this->_currentState = $stateMachine->getStartState();
         } else {
-            $this->_currentState = $currentState;
+            foreach($stateMachine->getStates() as $state) {
+                if($state->getName() === $currentState->getName()) {
+                    $this->_currentState = $state;
+                    break;
+                }
+            }
         }
         $this->_stateMachine = $stateMachine;
     }

@@ -52,14 +52,25 @@ class TestStateMachine extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, count($stateMachine->getStates()));
     }
 
-    /**
-     * @group test
-     */
     public function testArrayTransition()
     {
         $stateMachine = StateMachine::fromJsonFile('./array-transition.json');
         $controller = new Controller($stateMachine);
         $controller->handle('D');
         $this->assertEquals('dc:sf', $controller->getCurrentState()->getName());
+    }
+
+
+    /**
+     * @group test
+     */
+    public function testComplexTransition()
+    {
+        $state = new State('150:1');
+        $stateMachine = StateMachine::fromFile('./shipping_notice.sm');
+        $controller = new Controller($stateMachine, $state);
+        $currentState = $controller->getCurrentState();
+        $this->assertEquals(1, count($currentState->getAllPosibleTriggers()));
+        $this->assertEquals('close', $currentState->getAllPosibleTriggers()[0]->getName());
     }
 }
