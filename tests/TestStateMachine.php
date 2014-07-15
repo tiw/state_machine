@@ -70,10 +70,10 @@ class TestStateMachine extends \PHPUnit_Framework_TestCase
         $stateMachine = StateMachine::fromFile('./shipping_notice.sm');
         $controller = new Controller($stateMachine, $state);
         $currentState = $controller->getCurrentState();
-        $this->assertEquals(1, count($currentState->getAllPosibleTriggers()));
+        $this->assertEquals(1, count($currentState->getAllPossibleTriggers()));
         $this->assertEquals(
             'close',
-            $currentState->getAllPosibleTriggers()->current()->getName()
+            $currentState->getAllPossibleTriggers()->current()->getName()
         );
     }
 }

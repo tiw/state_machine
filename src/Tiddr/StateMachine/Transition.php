@@ -1,6 +1,10 @@
 <?php
 namespace Tiddr\StateMachine;
 
+/**
+ * Class Transition
+ * @package Tiddr\StateMachine
+ */
 class Transition
 {
     /**
@@ -19,6 +23,11 @@ class Transition
     private $_trigger;
 
 
+    /**
+     * @param State $source  start state
+     * @param Event $trigger the trigger
+     * @param State $target  end state
+     */
     public function __construct(State $source, Event $trigger, State $target)
     {
         $this->_source = $source;
@@ -35,6 +44,9 @@ class Transition
     }
 
 
+    /**
+     * @return Event
+     */
     public function getTrigger()
     {
         return $this->_trigger;

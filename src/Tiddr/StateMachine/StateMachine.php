@@ -3,8 +3,8 @@ namespace Tiddr\StateMachine;
 use Tiddr\StateMachine\State;
 
 /**
- * State Machine
- *
+ * Class StateMachine
+ * @package Tiddr\StateMachine
  */
 class StateMachine
 {
@@ -13,6 +13,9 @@ class StateMachine
      */
     private $_start;
 
+    /**
+     * @param State $start
+     */
     public function __construct(State $start)
     {
         $this->_start = $start;
@@ -29,7 +32,7 @@ class StateMachine
 
     /**
      *
-     * @return [State]
+     * @return State[]
      */
     public function getStates()
     {
@@ -39,11 +42,12 @@ class StateMachine
     }
 
     /**
-     * @param [State] $states states
-     * @param state   $s      start state
+     * @param State[] $states states
+     * @param State   $start
      *
+     * @internal param \Tiddr\StateMachine\State $s start state
      */
-    private function _collectStates(&$states, $start)
+    private function _collectStates(&$states, State $start)
     {
         $keys = [];
         foreach($states as $state) {
@@ -53,7 +57,7 @@ class StateMachine
             return;
         }
         $states[] = $start;
-        foreach($start->getAllTargets() as $code=>$target) {
+        foreach($start->getAllTargets() as $target) {
             $this->_collectStates($states, $target);
         }
     }
@@ -62,8 +66,8 @@ class StateMachine
     /**
      * @param string $file state machine
      *
+     * @throws \Exception
      * @return StateMachine state machine
-     *
      */
     public static function fromJsonFile($file)
     {
@@ -71,17 +75,17 @@ class StateMachine
             throw new \Exception("Cannot found file {$file}");
         }
         $lex = Json_decode(file_get_contents($file), true);
-        foreach(self::getExtensions() as $extension) {
+        foreach(self::_getExtensions() as $extension) {
             $lex = call_user_func($extension, $lex);
         }
         return self::_generateFromLex($lex);
     }
 
 
-    public static function getExtensions()
+    private static function _getExtensions()
     {
         return [
-            // add tubo state defination
+            // add state definition
             function($lex) {
                 foreach($lex['State'] as $key => $state) {
                     if (is_array($state)) {
@@ -97,7 +101,7 @@ class StateMachine
                 }
                 return $lex;
             },
-            // add tubo transition definition
+            // add transition definition
             function($lex) {
                 foreach($lex['Transition'] as $key => $transition) {
                     if (count($transition) != 3) {
@@ -116,6 +120,10 @@ class StateMachine
         ];
     }
 
+    /**
+     * @param $lex
+     * @return StateMachine
+     */
     private static function _generateFromLex($lex)
     {
         $events = [];
@@ -123,6 +131,8 @@ class StateMachine
             $events[$eventData[1]] = new Event($eventData[0], $eventData[1]);
         }
 
+        /** @var State[] $states */
+        $states = [];
         foreach($lex['State'] as $stateData) {
             $states[$stateData] = new State($stateData);
         }
@@ -142,8 +152,8 @@ class StateMachine
      *
      * @param string $file file path
      *
+     * @throws \Exception
      * @return StateMachine
-     *
      */
     public static function fromFile($file)
     {

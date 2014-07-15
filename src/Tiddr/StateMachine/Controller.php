@@ -7,13 +7,34 @@ use Tiddr\StateMachine\Event;
 use Tiddr\StateMachine\Command;
 use Tiddr\StateMachine\StateMachine;
 
+/**
+ * Class Controller
+ * This is the engine of State Machine, drives state transit from one to the other.
+ *
+ * @package Tiddr\StateMachine
+ */
 class Controller
 {
+    /**
+     * @var State the current state of the machine
+     */
     private $_currentState;
+
+    /**
+     * @var StateMachine
+     */
     private $_stateMachine;
+
+    /**
+     * @var Publisher
+     */
     private $_publisher;
 
-    public function __construct($stateMachine, $currentState=null)
+    /**
+     * @param StateMachine $stateMachine
+     * @param State $currentState
+     */
+    public function __construct(StateMachine $stateMachine, State $currentState=null)
     {
         if (is_null($currentState)) {
             $this->_currentState = $stateMachine->getStartState();
@@ -28,6 +49,9 @@ class Controller
         $this->_stateMachine = $stateMachine;
     }
 
+    /**
+     * @param Publisher $publisher
+     */
     public function setPublisher(Publisher $publisher)
     {
         $this->_publisher = $publisher;
@@ -56,7 +80,7 @@ class Controller
         }
     }
 
-    private function _transitionTo($target)
+    private function _transitionTo(State $target)
     {
         $this->_currentState = $target;
         if(isset($this->_publisher)){
