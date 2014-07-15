@@ -43,7 +43,51 @@ State模块定义了所有的状态， 格式为 "状态代码"。 代码也是�
 Transition块定义了转换规则， 格式为 [起始状态,  事件, 目标状态]。 表述的意思为：
 在"起始状态时"， 收到了"事件"， 状态变为"目标状态"。
 
+还可以使用Json文件定义， 方法类似yml
 
+```
+{
+  "Name": "door",
+  "Start": "dc",
+  "Event": [
+    ["close door", "CD"],
+    ["open door", "OD"],
+    ["open window", "OW"],
+    ["close window", "CW"]
+  ],
+  "State": ["dc", "do", "wo", "wc"],
+  "Transition": [
+    ["dc", "OD", "do"],
+    ["do", "OW", "wo"],
+    ["wo", "CW", "wc"],
+    ["do", "CD", "dc"],
+  ]
+}
+```
+
+还有一些会计写法
+
+State 定义的简写
+
+```
+    "State": [
+        [["dc", "do", "wo", "wc"], "sf"], // this is same as ["dc:sf", "do:sf", "wo:sf", "wc:sf"]
+        "dc", "do", "wo", "wc"
+    ],
+```
+
+Transition 的简写：
+
+```
+    "Transition": [
+        [["dc", "do", "wo", "wc"], "D", "sf"]
+    ]
+// this is same as
+//        ["dc", "D", "dc:sf"]
+//        ["do", "D", "do:sf"]
+//        ["wo", "D", "wo:sf"]
+//        ["wc", "D", "wc:sf"]
+```
 通过composer安装
 ==============
 在你的composer.json中添加下面的内容， 之后compose.phar install即可。
